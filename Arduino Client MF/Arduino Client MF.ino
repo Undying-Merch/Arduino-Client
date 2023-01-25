@@ -30,10 +30,30 @@ int maxHum = 50;
 //min humidity before it sends a warning.
 int minHum = 30;
 
+//Variables for getting time
+//Boards Mac Address
+byte mac[] = {
+  0xA8, 0x61, 0x0A, 0xAE, 0x94, 0xD3
+};
+unsigned int localPort = 8888;       // Local port to listen for UDP packets
+const char timeServer[] = "time.google.com"; // time.google.com NTP server
+const int NTP_PACKET_SIZE = 48; // NTP time stamp is in the first 48 bytes of the message
+byte packetBuffer[NTP_PACKET_SIZE]; //Buffer to hold incoming and outgoing packets
+EthernetUDP Udp;
+
+//Settings for HTTP
+int    HTTP_PORT   = 8000;
+String HTTP_METHOD = "POST";
+char   HOST_NAME[] = "192.168.1.114";
+String PATH_NAME   = "/data/opretmaalinger/";
+// Connect to the HTTP server
+EthernetClient client;
+
 //Variables for Sound
 //Their placement on the board
 const int pinAdc = A0;
 const int buttonPin = 5;
+int alarmLed = 3;
 //Set to check when the button is pressed
 int buttonState = 0;
 //Variables used throughout the code
@@ -45,28 +65,8 @@ int maxSoundValue = 500;
 bool soundWarningBool = false;
 bool soundAlarm = false;
 bool alarmSounded = false;
-int alarmLed = 3;
 bool lightOn = false;
 
-//Settings for HTTP
-int    HTTP_PORT   = 8000;
-String HTTP_METHOD = "POST";
-char   HOST_NAME[] = "192.168.1.114";
-String PATH_NAME   = "/data/opretmaalinger/";
-// Connect to the HTTP server
-EthernetClient client;
-
-
-//Variables for getting time
-//Boards Mac Address
-byte mac[] = {
-  0xA8, 0x61, 0x0A, 0xAE, 0x94, 0xD3
-};
-unsigned int localPort = 8888;       // Local port to listen for UDP packets
-const char timeServer[] = "time.google.com"; // time.google.com NTP server
-const int NTP_PACKET_SIZE = 48; // NTP time stamp is in the first 48 bytes of the message
-byte packetBuffer[NTP_PACKET_SIZE]; //Buffer to hold incoming and outgoing packets
-EthernetUDP Udp;
 
 //Variables for DHT
 //Values recorded from the DHT
