@@ -18,7 +18,7 @@ int closingHour = 18;
 //Timezone (GMT)
 int gmt = 1;
 //Time for when it should send to DB (in minutes)
-int timerMinutes = 10;
+int timerMinutes = 5;
 //If true Temperature will be uploaded in Celcius, if false, the will be uploaded in Fahrenheit
 bool celcius = true;
 //Min temp before it sends a warning (in Celcius)
@@ -29,6 +29,7 @@ int maxTemp = 21;
 int maxHum = 50;
 //min humidity before it sends a warning.
 int minHum = 30;
+
 
 //Variables for getting time
 //Boards Mac Address
@@ -289,6 +290,10 @@ void setWarning(){
       tempoString = tempoString + "& ";      
     }
     tempoString = tempoString + "Sound exceded safe rates ";
+  }
+  //If there is no warnings.
+  if(tempoString == ""){
+    tempoString = "No warnings";
   }
  
   
